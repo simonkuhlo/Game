@@ -1,0 +1,6 @@
+[gd_resource type="Resource" script_class="SpellUI" load_steps=2 format=3 uid="uid://dym3tq40uwfly"]
+
+[ext_resource type="Script" path="res://Spells/spell_ui_res.gd" id="1_rhffu"]
+
+[resource]
+script = ExtResource("1_rhffu")

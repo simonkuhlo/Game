@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://lghw3shmq3uh"]
+
+[ext_resource type="Script" path="res://World/Camera/v1/FollowingCamera.gd" id="1_1vjkw"]
+[ext_resource type="Script" path="res://World/Camera/v1/CameraRigPosition.gd" id="2_imq3r"]
+[ext_resource type="Script" path="res://World/Camera/v1/WorldCamera.gd" id="3_ng4oo"]
+[ext_resource type="Script" path="res://World/Camera/v1/CameraRigRotation.gd" id="3_sevp7"]
+
+[node name="FollowingCamera" type="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_1vjkw")
+
+[node name="CameraRigRotation" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0)
+script = ExtResource("3_sevp7")
+
+[node name="CameraRigPosition" type="Marker3D" parent="CameraRigRotation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
+script = ExtResource("2_imq3r")
+
+[node name="WorldCamera1" type="Camera3D" parent="CameraRigRotation/CameraRigPosition"]
+unique_name_in_owner = true
+current = true
+script = ExtResource("3_ng4oo")

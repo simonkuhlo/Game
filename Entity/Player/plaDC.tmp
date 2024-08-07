@@ -1,0 +1,81 @@
+[gd_scene load_steps=12 format=3 uid="uid://cspb6w76eo288"]
+
+[ext_resource type="Script" path="res://Entity/Player/player.gd" id="1_715fa"]
+[ext_resource type="Resource" uid="uid://cepby2o1li1ns" path="res://Spells/fireball/fireball.tres" id="2_3vunk"]
+[ext_resource type="Script" path="res://Entity/Player/CurrentSpellLabel.gd" id="3_4wns3"]
+[ext_resource type="Script" path="res://Entity/Player/UI_Holder.gd" id="3_75s6a"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_u1fjj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dvpj5"]
+albedo_color = Color(0.470588, 0.592157, 1, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lcmej"]
+material = SubResource("StandardMaterial3D_dvpj5")
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ebvm7"]
+top_radius = 0.0
+bottom_radius = 0.2
+height = 0.5
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8s5bb"]
+height = 0.05
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lv85a"]
+albedo_color = Color(1, 0.258824, 0.27451, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_chcqx"]
+material = SubResource("StandardMaterial3D_lv85a")
+radius = 0.1
+height = 0.2
+
+[node name="Player" type="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 0
+script = ExtResource("1_715fa")
+current_spell = ExtResource("2_3vunk")
+
+[node name="HitBox" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_u1fjj")
+
+[node name="Model" type="Node3D" parent="."]
+
+[node name="CharacterModel" type="MeshInstance3D" parent="Model"]
+mesh = SubResource("CapsuleMesh_lcmej")
+skeleton = NodePath("../..")
+
+[node name="Hat" type="Node3D" parent="Model"]
+transform = Transform3D(1.25798, -0.110638, -0.308611, 0, 1.22374, -0.438715, 0.327844, 0.424535, 1.18418, 0.045698, -0.271613, -0.198164)
+
+[node name="HatTop" type="MeshInstance3D" parent="Model/Hat"]
+transform = Transform3D(1.0036, 9.31323e-10, -3.72529e-09, -1.49012e-08, 1.0036, -4.47035e-08, -3.72529e-09, -5.96046e-08, 1.0036, 0, 1.22979, 0)
+mesh = SubResource("CylinderMesh_ebvm7")
+skeleton = NodePath("../../..")
+
+[node name="HatBottom" type="MeshInstance3D" parent="Model/Hat"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.975795, 0)
+mesh = SubResource("CylinderMesh_8s5bb")
+skeleton = NodePath("../HatTop")
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0.309881, 0)
+debug_shape_custom_color = Color(0.670588, 0, 0, 1)
+
+[node name="PlayerCursor" type="Marker3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerCursor"]
+mesh = SubResource("CapsuleMesh_chcqx")
+
+[node name="SpellcastOrigin" type="Marker3D" parent="."]
+unique_name_in_owner = true
+
+[node name="UI_Holder" type="Node3D" parent="."]
+script = ExtResource("3_75s6a")
+
+[node name="CurrentSpellLabel" type="Label3D" parent="UI_Holder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.28331, 0)
+text = "Hallo
+"
+script = ExtResource("3_4wns3")

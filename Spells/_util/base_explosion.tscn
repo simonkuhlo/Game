@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://da28lc8tg52gx"]
+
+[ext_resource type="Script" path="res://Spells/_util/base_explosion.gd" id="1_yrg6w"]
+[ext_resource type="Texture2D" uid="uid://dekhfy767khih" path="res://Assets/Prototype/kenney_prototype-textures/PNG/Orange/texture_03.png" id="2_jpfhr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d5ixk"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.172549)
+albedo_texture = ExtResource("2_jpfhr")
+
+[sub_resource type="SphereMesh" id="SphereMesh_4hlvy"]
+material = SubResource("StandardMaterial3D_d5ixk")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_hqjrc"]
+
+[node name="ExplosionInstance" type="Node3D"]
+script = ExtResource("1_yrg6w")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("SphereMesh_4hlvy")
+skeleton = NodePath("../ExplosionHitbox")
+
+[node name="ExplosionHitbox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ExplosionHitbox"]
+shape = SubResource("SphereShape3D_hqjrc")

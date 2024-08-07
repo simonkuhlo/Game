@@ -1,0 +1,44 @@
+[gd_scene load_steps=10 format=3 uid="uid://c2kc2db4kvfcy"]
+
+[ext_resource type="Script" path="res://Spells/spell_instance.gd" id="1_bna02"]
+[ext_resource type="PackedScene" uid="uid://da28lc8tg52gx" path="res://Spells/_util/base_explosion.tscn" id="2_mcj0h"]
+[ext_resource type="Texture2D" uid="uid://d1y1st8c4xy25" path="res://Assets/Prototype/kenney_prototype-textures/PNG/Red/texture_09.png" id="2_ue78v"]
+[ext_resource type="Texture2D" uid="uid://db8qj1acbwmty" path="res://Assets/Prototype/kenney_prototype-textures/PNG/Red/texture_01.png" id="3_aakl1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_qx4vr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dky5a"]
+albedo_texture = ExtResource("2_ue78v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_l728l"]
+albedo_texture = ExtResource("3_aakl1")
+
+[sub_resource type="SphereMesh" id="SphereMesh_43kqv"]
+material = SubResource("StandardMaterial3D_l728l")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ce5ra"]
+
+[node name="Fireball" type="CharacterBody3D"]
+collision_layer = 0
+script = ExtResource("1_bna02")
+explosion = ExtResource("2_mcj0h")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_qx4vr")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_dky5a")
+mesh = SubResource("SphereMesh_43kqv")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="Hitboxes" type="Node3D" parent="."]
+
+[node name="MainHitbox" type="Area3D" parent="Hitboxes"]
+collision_mask = 15
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Hitboxes/MainHitbox"]
+shape = SubResource("SphereShape3D_ce5ra")
+
+[connection signal="area_entered" from="Hitboxes/MainHitbox" to="." method="_on_main_hitbox_area_entered"]
+[connection signal="body_entered" from="Hitboxes/MainHitbox" to="." method="_on_main_hitbox_body_entered"]

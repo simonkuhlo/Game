@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="SpellStats" load_steps=2 format=3 uid="uid://dp4mqh2aee0f4"]
+
+[ext_resource type="Script" path="res://Spells/spell_stats_res.gd" id="1_i1i6v"]
+
+[resource]
+script = ExtResource("1_i1i6v")
+damage = 100
+projectile_speed = 10.0
+seconds_to_live = 10.0
+onhit_effects = Array[Resource("res://Statuseffects/status_effect.gd")]([])

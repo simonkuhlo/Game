@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b2lprubdyx0uk"]
+
+[ext_resource type="Script" path="res://World/Camera/v2/camera_v2.gd" id="1_lkmch"]
+
+[node name="CameraV2" type="Node3D"]
+script = ExtResource("1_lkmch")
+
+[node name="Camera3D" type="Camera3D" parent="."]
